@@ -37,12 +37,24 @@ def inserevalores(nome, cpf, estado):
     #Insere linha na tabela
     cursor.execute("INSERT INTO Tabela1 (nome, cpf, estado) VALUES (?, ?, ?)", (nome, cpf, estado))
 
+
 def salvarDados():
     nome = textoEntrada.get()
     cpf = textoEntrada2.get()
     estado = textoEntrada3.get()
 
+    estados = carregarEstados()
+
+    if not VerificarCPF(cpf):
+        print("CPF inválido.")
+        return
+
+    if estado not in estados:
+        print("Estado inválido.")
+        return
+
     inserevalores(nome, cpf, estado)
+    print("Dados salvos no Banco.")
 
 def carregarEstados():
     with open("config.txt", "r") as file:
