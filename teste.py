@@ -7,8 +7,7 @@ import sqlite3
 from PIL import Image, ImageTk
 
 #adicionar clicar no botão salva os 3 dados em um sqlite - v4
-#Criar uma branch em que le um config.txt com uma lista de 5 estados possiveis separados por pular linha - x1
-#Mudar o separador para ; e adicionar mais 5 estados - x2
+
 #Voltar para main, criar outra branch e criar um dropdown com 3 opções (clt, mei, socio) - y1
 #Voltar para main, Corrigir o bug da função de cpf - v5
 #Merge de x com v - v6
@@ -82,8 +81,13 @@ def Main():
     e3 = tkinter.Entry(root, textvariable=textoEntrada3)
     e3.grid(row=6, column=1, pady=10)
 
+    tipos = ["CLT", "MEI", "Sócio"]
+    dropdown = ttk.Combobox(root, values=tipos)
+    dropdown.grid(row=7, column=1, pady=10)
+    dropdown.set("Selecione um tipo")
+
     test2 = tkinter.Button(root, text="Salvar", command=salvarDados)
-    test2.grid(row=7, column=1, pady=10)
+    test2.grid(row=8, column=1, pady=10)
 
     root.iconify() #Minimiza a tela
     root.update()
