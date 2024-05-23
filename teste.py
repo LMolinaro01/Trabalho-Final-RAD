@@ -6,7 +6,6 @@ from tkinter import *
 import sqlite3
 from PIL import Image, ImageTk
 
-#mudar o fundo para uma imagem mais bonita, adicionar readme.txt explicando como usar - v3
 #adicionar clicar no botão salva os 3 dados em um sqlite - v4
 #Criar uma branch em que le um config.txt com uma lista de 5 estados possiveis separados por pular linha - x1
 #Mudar o separador para ; e adicionar mais 5 estados - x2
@@ -20,7 +19,7 @@ connection = sqlite3.connect("teste.db")
 
 #Cria o cursos e cria a tabela
 cursor = connection.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS Tabela1 (nome TEXT, curso TEXT, matricula INTEGER)")
+cursor.execute("CREATE TABLE IF NOT EXISTS Tabela1 (nome TEXT, cpf TEXT, estado INTEGER)")
 def VerificarCPF(CPF):
     #CPF deve ser na forma "123.456.789-10"
     for trecho in CPF.split("."):
@@ -29,9 +28,16 @@ def VerificarCPF(CPF):
         else:
             return True
 
-def inserevalores(Valor1, Valor2):
+def inserevalores(nome, cpf, estado):
     #Insere linha na tabela
-    cursor.execute("INSERT INTO Tabela1 VALUES ('"+Valor1+"', '"+Valor2+"')")
+    cursor.execute("INSERT INTO Tabela1 (nome, cpf, estado) VALUES (?, ?, ?)", (nome, cpf, estado))
+
+def salvarDados():
+    nome = textoEntrada.get()
+    cpf = textoEntrada2.get()
+    estado = textoEntrada3.get()
+
+    inserevalores(nome, cpf, estado)
 
 def pegavalores():
     #Pega valores da tabela
@@ -55,29 +61,28 @@ def Main():
     label = tkinter.Label(root, text="Nome", bg = "#003366", fg="white")
     label.grid(row=1, column=1, pady=10)
 
+    global textoEntrada
     textoEntrada = tkinter.StringVar()
-    e1 = tkinter.Entry(root)
-    e1.bind('<Key>', lambda x:textoEntrada.set(e1.get()+x.char))
+    e1 = tkinter.Entry(root, textvariable=textoEntrada)
     e1.grid(row=2, column=1, pady=10)
 
-    label2 = tkinter.Label(root, text="CPF", bg = "#003366", fg="white")
+    label2 = tkinter.Label(root, text="CPF", bg="#003366", fg="white")
     label2.grid(row=3, column=1, pady=10)
 
+    global textoEntrada2
     textoEntrada2 = tkinter.StringVar()
-    e2 = tkinter.Entry(root)
-    e2.bind('<Key>', lambda x:textoEntrada2.set(e2.get()+x.char))
+    e2 = tkinter.Entry(root, textvariable=textoEntrada2)
     e2.grid(row=4, column=1, pady=10)
 
-    label3 = tkinter.Label(root, text="Estado", bg = "#003366", fg="white")
+    label3 = tkinter.Label(root, text="Estado", bg="#003366", fg="white")
     label3.grid(row=5, column=1, pady=10)
 
+    global textoEntrada3
     textoEntrada3 = tkinter.StringVar()
-    e3 = tkinter.Entry(root)
-    e3.bind('<Key>', lambda x:textoEntrada3.set(e3.get()+x.char))
+    e3 = tkinter.Entry(root, textvariable=textoEntrada3)
     e3.grid(row=6, column=1, pady=10)
 
-    test2 = tkinter.Button(root, text="Salvar")
-    test2['command'] = funcExemplo  #alterar para chamar outra função
+    test2 = tkinter.Button(root, text="Salvar", command=salvarDados)
     test2.grid(row=7, column=1, pady=10)
 
     root.iconify() #Minimiza a tela
