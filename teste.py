@@ -40,7 +40,8 @@ def salvarDados():
 
 def carregarEstados():
     with open("config.txt", "r") as file:
-        estados = file.read().splitlines()
+        linha = file.readline().strip()
+        estados = linha.split(';')
     return estados
 
 def pegavalores():
