@@ -21,12 +21,18 @@ connection = sqlite3.connect("teste.db")
 cursor = connection.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS Tabela1 (nome TEXT, cpf TEXT, estado INTEGER)")
 def VerificarCPF(CPF):
-    #CPF deve ser na forma "123.456.789-10"
-    for trecho in CPF.split("."):
-        if len(trecho)!=3:
+    # CPF deve ser na forma "123.456.789-10"
+    if len(CPF) != 14: #verificando se o tamanho total do CPF é 14 caracteres.
+        return False
+    partes = CPF.split(".") #dividido em três partes
+    if len(partes) != 3:
+        return False
+    if len(partes[2].split("-")) != 2: #dividido em duas partes
+        return False
+    for trecho in partes[:2] + partes[2].split("-"): #garantir que possuem apenas dígitos e tenham o tamanho correto (3 para as três primeiras partes e 2 para a última).
+        if not trecho.isdigit() or len(trecho) != 3 and len(trecho) != 2:
             return False
-        else:
-            return True
+    return True
 
 def inserevalores(nome, cpf, estado):
     #Insere linha na tabela
