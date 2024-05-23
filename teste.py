@@ -3,7 +3,6 @@ from tkinter import messagebox as mb
 from tkinter import ttk
 import sqlite3
 
-#começar com tela com um botão e um entry (nome)- v1
 #adicionar mais duas entrys (cpf e estado) e suas labels - v2
 #mudar o fundo para uma imagem mais bonita, adicionar readme.txt explicando como usar - v3
 #adicionar clicar no botão salva os 3 dados em um sqlite - v4
@@ -52,7 +51,23 @@ def Main():
     e1 = tkinter.Entry(root)
     e1.bind('<Key>', lambda x:textoEntrada.set(e1.get()+x.char))
     e1.pack()
-    
+
+    label2 = tkinter.Label(root, text="CPF")
+    label2.pack()
+
+    textoEntrada2 = tkinter.StringVar()
+    e2 = tkinter.Entry(root)
+    e2.bind('<Key>', lambda x: textoEntrada2.set(e2.get() + x.char))
+    e2.pack()
+
+    label3 = tkinter.Label(root, text="Estado")
+    label3.pack()
+
+    textoEntrada3 = tkinter.StringVar()
+    e3 = tkinter.Entry(root)
+    e3.bind('<Key>', lambda x: textoEntrada3.set(e3.get() + x.char))
+    e3.pack()
+
     test2 = tkinter.Button(root, text="Salvar")
     test2['command'] = funcExemplo  #alterar para chamar outra função
     test2.pack()
