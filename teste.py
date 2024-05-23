@@ -2,8 +2,10 @@ import tkinter
 from tkinter import messagebox as mb
 from tkinter import ttk
 import sqlite3
+from tkinter import *
+import sqlite3
+from PIL import Image, ImageTk
 
-#adicionar mais duas entrys (cpf e estado) e suas labels - v2
 #mudar o fundo para uma imagem mais bonita, adicionar readme.txt explicando como usar - v3
 #adicionar clicar no botão salva os 3 dados em um sqlite - v4
 #Criar uma branch em que le um config.txt com uma lista de 5 estados possiveis separados por pular linha - x1
@@ -42,35 +44,41 @@ def funcExemplo():
 def Main():
     root = tkinter.Tk()
     root.title("Trabalho RAD")
-    root.resizable(False, False)
-    
-    label = tkinter.Label(root, text="Nome")
-    label.pack()
+    #root.resizable(False, False)
+
+    image1 = Image.open("wallpaper.jpg")
+    test = ImageTk.PhotoImage(image1)
+    label1 = tkinter.Label(root, image=test)
+    label1.image = test
+    label1.place(x=0, y=0)
+
+    label = tkinter.Label(root, text="Nome", bg = "#003366", fg="white")
+    label.grid(row=1, column=1, pady=10)
 
     textoEntrada = tkinter.StringVar()
     e1 = tkinter.Entry(root)
     e1.bind('<Key>', lambda x:textoEntrada.set(e1.get()+x.char))
-    e1.pack()
+    e1.grid(row=2, column=1, pady=10)
 
-    label2 = tkinter.Label(root, text="CPF")
-    label2.pack()
+    label2 = tkinter.Label(root, text="CPF", bg = "#003366", fg="white")
+    label2.grid(row=3, column=1, pady=10)
 
     textoEntrada2 = tkinter.StringVar()
     e2 = tkinter.Entry(root)
-    e2.bind('<Key>', lambda x: textoEntrada2.set(e2.get() + x.char))
-    e2.pack()
+    e2.bind('<Key>', lambda x:textoEntrada2.set(e2.get()+x.char))
+    e2.grid(row=4, column=1, pady=10)
 
-    label3 = tkinter.Label(root, text="Estado")
-    label3.pack()
+    label3 = tkinter.Label(root, text="Estado", bg = "#003366", fg="white")
+    label3.grid(row=5, column=1, pady=10)
 
     textoEntrada3 = tkinter.StringVar()
     e3 = tkinter.Entry(root)
-    e3.bind('<Key>', lambda x: textoEntrada3.set(e3.get() + x.char))
-    e3.pack()
+    e3.bind('<Key>', lambda x:textoEntrada3.set(e3.get()+x.char))
+    e3.grid(row=6, column=1, pady=10)
 
     test2 = tkinter.Button(root, text="Salvar")
     test2['command'] = funcExemplo  #alterar para chamar outra função
-    test2.pack()
+    test2.grid(row=7, column=1, pady=10)
 
     root.iconify() #Minimiza a tela
     root.update()
