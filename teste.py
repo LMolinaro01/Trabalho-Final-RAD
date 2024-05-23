@@ -6,7 +6,6 @@ from tkinter import *
 import sqlite3
 from PIL import Image, ImageTk
 
-#adicionar clicar no botão salva os 3 dados em um sqlite - v4
 #Criar uma branch em que le um config.txt com uma lista de 5 estados possiveis separados por pular linha - x1
 #Mudar o separador para ; e adicionar mais 5 estados - x2
 #Voltar para main, criar outra branch e criar um dropdown com 3 opções (clt, mei, socio) - y1
@@ -38,6 +37,11 @@ def salvarDados():
     estado = textoEntrada3.get()
 
     inserevalores(nome, cpf, estado)
+
+def carregarEstados():
+    with open("config.txt", "r") as file:
+        estados = file.read().splitlines()
+    return estados
 
 def pegavalores():
     #Pega valores da tabela
